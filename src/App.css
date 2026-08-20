@@ -1,0 +1,441 @@
+/* =========================================================
+   089 CALCULATOR
+   GLOBAL UI
+   DARK / PURPLE / WHITE
+   ========================================================= */
+
+:root {
+  --app-bg: #040406;
+  --app-bg-soft: #08070d;
+
+  --purple-400: #c084fc;
+  --purple-500: #a855f7;
+  --purple-600: #9333ea;
+
+  --purple-soft: rgba(168, 85, 247, 0.10);
+  --purple-border: rgba(168, 85, 247, 0.18);
+  --purple-glow: rgba(168, 85, 247, 0.22);
+
+  --ui-border: rgba(255, 255, 255, 0.07);
+  --ui-border-soft: rgba(255, 255, 255, 0.045);
+  --ui-panel: rgba(255, 255, 255, 0.025);
+
+  --text-main: #f5f3f7;
+  --text-muted: #8b8792;
+  --text-subtle: #5f5b66;
+
+  --ui-radius: 14px;
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  color-scheme: dark;
+}
+
+
+/* =========================================================
+   BASIS
+   ========================================================= */
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+  background: var(--app-bg) !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at 78% 5%,
+      rgba(168, 85, 247, 0.095),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 12% 92%,
+      rgba(168, 85, 247, 0.055),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      #050408 0%,
+      #040406 100%
+    ) !important;
+
+  color: var(--text-main);
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  text-rendering: optimizeLegibility;
+}
+
+
+/* Kein Bild-Hintergrund */
+
+body::before,
+body::after {
+  display: none !important;
+}
+
+
+/* =========================================================
+   EINHEITLICHE SCHRIFT
+   ========================================================= */
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+input,
+textarea,
+select {
+  color: var(--text-main);
+}
+
+
+/* =========================================================
+   GOLD → PURPLE
+   Überschreibt vorhandene Tailwind-Gold-Klassen,
+   damit nicht jede TSX-Datei einzeln geändert werden muss.
+   ========================================================= */
+
+[class*="text-yellow-"] {
+  color: var(--purple-400) !important;
+}
+
+[class*="bg-yellow-"] {
+  background-color: var(--purple-500) !important;
+}
+
+[class*="border-yellow-"] {
+  border-color: var(--purple-border) !important;
+}
+
+[class*="ring-yellow-"] {
+  --tw-ring-color: var(--purple-500) !important;
+}
+
+[class*="decoration-yellow-"] {
+  text-decoration-color: var(--purple-500) !important;
+}
+
+
+/* Gold mit Transparenz / Arbitrary Values */
+
+.text-yellow-400,
+.text-yellow-500,
+.text-yellow-500\/60,
+.text-yellow-500\/70,
+.text-yellow-500\/80,
+.text-yellow-400\/80 {
+  color: var(--purple-400) !important;
+}
+
+
+/* =========================================================
+   PURPLE HIGHLIGHTS
+   ========================================================= */
+
+::selection {
+  background: rgba(168, 85, 247, 0.30);
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color:
+    rgba(168, 85, 247, 0.35)
+    rgba(255, 255, 255, 0.025);
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(168, 85, 247, 0.30);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 85, 247, 0.50);
+  background-clip: padding-box;
+}
+
+
+/* =========================================================
+   ALLGEMEINE UI-ANIMATIONEN
+   ========================================================= */
+
+@keyframes app-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes app-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes app-purple-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 rgba(168, 85, 247, 0);
+  }
+
+  50% {
+    box-shadow:
+      0 0 26px rgba(168, 85, 247, 0.10);
+  }
+}
+
+
+/* Hauptbereiche sanft einblenden */
+
+main {
+  animation:
+    app-fade-in
+    0.32s
+    cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* Karten / Panels */
+
+[class*="rounded-2xl"],
+[class*="rounded-xl"] {
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+button,
+label.cursor-pointer {
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease,
+    opacity 160ms ease;
+}
+
+button:not(:disabled):hover,
+label.cursor-pointer:hover {
+  transform: translateY(-1px);
+}
+
+button:not(:disabled):active,
+label.cursor-pointer:active {
+  transform: translateY(0) scale(0.985);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+
+/* Purple Primary Buttons */
+
+button[class*="bg-yellow-"],
+button[class*="text-black"] {
+  box-shadow:
+    0 8px 28px rgba(168, 85, 247, 0.08);
+}
+
+button[class*="bg-yellow-"]:not(:disabled):hover,
+button[class*="text-black"]:not(:disabled):hover {
+  box-shadow:
+    0 10px 34px rgba(168, 85, 247, 0.16);
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+input,
+textarea,
+select {
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: rgba(168, 85, 247, 0.45) !important;
+  box-shadow:
+    0 0 0 3px rgba(168, 85, 247, 0.08);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #57535d;
+}
+
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+
+a {
+  transition:
+    color 160ms ease,
+    opacity 160ms ease;
+}
+
+a:hover {
+  color: var(--purple-400);
+}
+
+
+/* =========================================================
+   MODAL / BACKDROP
+   ========================================================= */
+
+[class*="fixed"][class*="inset-0"] {
+  animation:
+    app-fade-in
+    0.20s
+    ease-out;
+}
+
+[class*="fixed"][class*="inset-0"] > [class*="rounded-2xl"] {
+  animation:
+    app-scale-in
+    0.22s
+    cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* =========================================================
+   AKTIVE NAVIGATION / PURPLE GLOW
+   ========================================================= */
+
+[class*="sidebar-item-active"] {
+  box-shadow:
+    inset 0 0 24px rgba(168, 85, 247, 0.035),
+    0 0 20px rgba(168, 85, 247, 0.025);
+}
+
+
+/* =========================================================
+   HOVER-KARTEN
+   ========================================================= */
+
+[class*="orders-card"]:hover,
+[class*="orders-stat-card"]:hover {
+  border-color:
+    rgba(168, 85, 247, 0.16) !important;
+
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.20),
+    0 0 26px rgba(168, 85, 247, 0.035);
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   Barrierefreundlich: Animationen auf Wunsch deaktivieren.
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 640px) {
+  main {
+    animation-duration: 0.22s;
+  }
+
+  button:not(:disabled):hover,
+  label.cursor-pointer:hover {
+    transform: none;
+  }
+}

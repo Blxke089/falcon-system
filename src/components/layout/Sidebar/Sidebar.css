@@ -1,0 +1,991 @@
+/* =========================================================
+   FALCON SYSTEM
+   SIDEBAR — PREMIUM GLASS / PURPLE
+   ========================================================= */
+
+.sidebar {
+  position: relative;
+
+  display: flex;
+
+  width: 224px;
+  min-width: 224px;
+  height: 100vh;
+
+  flex-direction: column;
+
+  overflow: hidden;
+
+  border-right: 1px solid
+    rgba(255, 255, 255, 0.065);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(5, 5, 8, 0.94),
+      rgba(2, 2, 4, 0.90)
+    );
+
+  backdrop-filter:
+    blur(16px)
+    saturate(115%);
+
+  -webkit-backdrop-filter:
+    blur(16px)
+    saturate(115%);
+
+  box-shadow:
+    8px 0 40px
+    rgba(0, 0, 0, 0.20);
+
+  z-index: 20;
+}
+
+.sidebar::after {
+  content: "";
+
+  position: absolute;
+
+  top: 70px;
+  right: -1px;
+
+  width: 1px;
+  height: 110px;
+
+  background:
+    linear-gradient(
+      180deg,
+      transparent,
+      rgba(168, 85, 247, 0.82),
+      transparent
+    );
+
+  box-shadow:
+    0 0 12px
+    rgba(168, 85, 247, 0.28);
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.sidebar-brand {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 18px 16px 15px;
+}
+
+.sidebar-logo {
+  position: relative;
+
+  display: flex;
+
+  width: 54px;
+  height: 54px;
+
+  flex-shrink: 0;
+
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  border-radius: 15px;
+
+  border: 1px solid
+    rgba(168, 85, 247, 0.34);
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(168, 85, 247, 0.18),
+      rgba(8, 8, 12, 0.94)
+    );
+
+  box-shadow:
+    0 0 16px
+      rgba(168, 85, 247, 0.26),
+    0 0 34px
+      rgba(168, 85, 247, 0.10);
+
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.sidebar-logo::before {
+  content: "";
+
+  position: absolute;
+  inset: -1px;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      125deg,
+      transparent 20%,
+      rgba(216, 180, 254, 0.55) 50%,
+      transparent 80%
+    );
+
+  opacity: 0.28;
+
+  animation:
+    falcon-logo-border 4s linear infinite;
+
+  pointer-events: none;
+}
+
+.sidebar-logo::after {
+  content: "";
+
+  position: absolute;
+  inset: -40%;
+
+  background:
+    linear-gradient(
+      115deg,
+      transparent 35%,
+      rgba(255, 255, 255, 0.35),
+      transparent 65%
+    );
+
+  transform: translateX(-70%) rotate(12deg);
+
+  animation:
+    falcon-logo-shine 4.5s ease-in-out infinite;
+
+  pointer-events: none;
+}
+
+.sidebar-logo-image {
+  position: relative;
+
+  z-index: 2;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  filter:
+    drop-shadow(
+      0 0 6px
+      rgba(168, 85, 247, 0.50)
+    );
+}
+
+.sidebar-logo:hover {
+  transform: translateY(-1px) scale(1.035);
+
+  border-color:
+    rgba(216, 180, 254, 0.72);
+
+  box-shadow:
+    0 0 18px
+      rgba(168, 85, 247, 0.34),
+    0 0 38px
+      rgba(168, 85, 247, 0.13);
+}
+
+.sidebar-brand-text {
+  min-width: 0;
+}
+
+.sidebar-brand-text h1 {
+  margin: 0;
+
+  font-size: 15px;
+
+  line-height: 1.1;
+
+  font-weight: 950;
+
+  letter-spacing: -0.025em;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 0 12px
+    rgba(168, 85, 247, 0.12);
+}
+
+.sidebar-brand-text h1 span {
+  color:
+    #c084fc;
+}
+
+.sidebar-brand-text p {
+  margin-top: 4px;
+
+  font-size: 7px;
+
+  line-height: 1;
+
+  font-weight: 800;
+
+  letter-spacing: 0.19em;
+
+  color:
+    rgba(113, 113, 122, 0.70);
+}
+
+/* =========================================================
+   NEUE BESTELLUNG
+   ========================================================= */
+
+.sidebar-new-order {
+  padding: 5px 13px 17px;
+}
+
+.sidebar-new-order-button {
+  display: flex;
+
+  width: 100%;
+  height: 38px;
+
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 0 10px;
+
+  border-radius: 9px;
+
+  border: 1px solid
+    rgba(168, 85, 247, 0.26);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(168, 85, 247, 0.96),
+      rgba(126, 34, 206, 0.96)
+    );
+
+  color: #ffffff;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  box-shadow:
+    0 7px 25px
+    rgba(168, 85, 247, 0.10);
+
+  cursor: pointer;
+
+  transition:
+    transform 160ms ease,
+    filter 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.sidebar-new-order-button:hover {
+  transform: translateY(-1px);
+
+  filter: brightness(1.07);
+
+  box-shadow:
+    0 9px 30px
+    rgba(168, 85, 247, 0.18);
+}
+
+.sidebar-plus {
+  display: flex;
+
+  width: 24px;
+  height: 24px;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 7px;
+
+  background:
+    rgba(255, 255, 255, 0.12);
+}
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.sidebar-navigation {
+  flex: 1;
+
+  min-height: 0;
+
+  padding: 0 9px;
+
+  overflow-y: auto;
+
+  scrollbar-width: none;
+}
+
+.sidebar-navigation::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar-heading {
+  padding: 0 9px;
+
+  margin: 0 0 7px;
+
+  font-size: 8px;
+
+  line-height: 1;
+
+  font-weight: 800;
+
+  letter-spacing: 0.18em;
+
+  text-transform: uppercase;
+
+  color:
+    rgba(140, 140, 148, 0.65);
+}
+
+.sidebar-heading-system {
+  margin-top: 23px;
+}
+
+.sidebar-nav-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+/* =========================================================
+   NAV ITEM
+   ========================================================= */
+
+.sidebar-item {
+  position: relative;
+
+  display: flex;
+
+  width: 100%;
+  height: 38px;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 0 10px;
+
+  border: 1px solid transparent;
+
+  border-radius: 9px;
+
+  background: transparent;
+
+  color:
+    rgba(180, 180, 188, 0.78);
+
+  font-size: 10.5px;
+
+  font-weight: 650;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease,
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.sidebar-item::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+
+  top: 8px;
+  bottom: 8px;
+
+  width: 2px;
+
+  border-radius: 999px;
+
+  background:
+    rgba(168, 85, 247, 0);
+
+  box-shadow:
+    0 0 0
+    rgba(168, 85, 247, 0);
+
+  transition:
+    background 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.sidebar-item:hover {
+  background:
+    rgba(168, 85, 247, 0.035);
+
+  border-color:
+    rgba(168, 85, 247, 0.075);
+
+  color:
+    rgba(244, 244, 245, 0.96);
+
+  transform:
+    translateX(1px);
+
+  box-shadow:
+    inset 0 0 18px
+    rgba(168, 85, 247, 0.018);
+}
+
+.sidebar-item:hover::before {
+  background:
+    rgba(168, 85, 247, 0.45);
+
+  box-shadow:
+    0 0 9px
+    rgba(168, 85, 247, 0.35);
+}
+
+.sidebar-item-active {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(168, 85, 247, 0.12),
+      rgba(168, 85, 247, 0.035)
+    );
+
+  border-color:
+    rgba(168, 85, 247, 0.15);
+
+  color:
+    #c084fc;
+
+  box-shadow:
+    inset 0 0 20px
+    rgba(168, 85, 247, 0.018),
+    0 0 15px
+    rgba(168, 85, 247, 0.015);
+}
+
+.sidebar-item-active::before {
+  background:
+    #a855f7;
+
+  box-shadow:
+    0 0 10px
+    rgba(168, 85, 247, 0.65);
+}
+
+.sidebar-item-icon {
+  display: flex;
+
+  width: 20px;
+  height: 20px;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  opacity: 0.82;
+}
+
+.sidebar-item-active
+.sidebar-item-icon {
+  opacity: 1;
+}
+
+.sidebar-item-label {
+  min-width: 0;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.sidebar-active-dot {
+  width: 4px;
+  height: 4px;
+
+  margin-left: auto;
+
+  flex-shrink: 0;
+
+  border-radius: 999px;
+
+  background:
+    #c084fc;
+
+  box-shadow:
+    0 0 8px
+    rgba(192, 132, 252, 0.75);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.sidebar-footer {
+  flex-shrink: 0;
+
+  padding: 10px 12px 12px;
+
+  border-top: 1px solid
+    rgba(255, 255, 255, 0.055);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(5, 5, 8, 0.30),
+      rgba(2, 2, 4, 0.58)
+    );
+}
+
+/* =========================================================
+   DISCORD CARD — PREMIUM EMBED
+   ========================================================= */
+
+.sidebar-discord-card {
+  position: relative;
+  min-height: 78px;
+  margin-bottom: 8px;
+  padding: 9px 10px 10px;
+  border-radius: 13px;
+  border: 1px solid rgba(168, 85, 247, 0.19);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(168, 85, 247, 0.12), transparent 46%),
+    linear-gradient(135deg, rgba(168, 85, 247, 0.075), rgba(255, 255, 255, 0.018));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035),
+    0 8px 28px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.sidebar-discord-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    120deg,
+    transparent 10%,
+    rgba(192, 132, 252, 0.48) 48%,
+    transparent 86%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.55;
+  animation: sidebar-discord-border 4.8s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.sidebar-discord-card::after {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  right: -42px;
+  top: -58px;
+  border-radius: 999px;
+  background: rgba(168, 85, 247, 0.13);
+  filter: blur(18px);
+  animation: sidebar-discord-glow 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.sidebar-discord-card:hover {
+  transform: translateY(-1px);
+  border-color: rgba(192, 132, 252, 0.32);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.045),
+    0 10px 32px rgba(0, 0, 0, 0.22),
+    0 0 22px rgba(168, 85, 247, 0.08);
+}
+
+.sidebar-discord-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.sidebar-discord-label {
+  font-size: 6px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  color: rgba(168, 85, 247, 0.78);
+}
+
+.sidebar-discord-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 5px;
+  border: 1px solid rgba(52, 211, 153, 0.12);
+  border-radius: 5px;
+  background: rgba(52, 211, 153, 0.045);
+  color: rgba(52, 211, 153, 0.78);
+  font-size: 5.5px;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+}
+
+.sidebar-discord-live-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: #34d399;
+  box-shadow: 0 0 7px rgba(52, 211, 153, 0.7);
+  animation: sidebar-discord-pulse 2s ease-in-out infinite;
+}
+
+.sidebar-discord-main {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.sidebar-discord-avatar-wrap {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+}
+
+.sidebar-discord-avatar {
+  display: flex;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11px;
+  border: 1px solid rgba(192, 132, 252, 0.24);
+  object-fit: cover;
+  background:
+    linear-gradient(145deg, rgba(168, 85, 247, 0.16), rgba(0, 0, 0, 0.35));
+  color: rgba(216, 180, 254, 0.88);
+  box-shadow:
+    0 0 13px rgba(168, 85, 247, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.sidebar-discord-avatar-fallback {
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-discord-online-dot {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #08080a;
+  border-radius: 999px;
+  background: #34d399;
+  box-shadow: 0 0 9px rgba(52, 211, 153, 0.58);
+}
+
+.sidebar-discord-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.sidebar-discord-name {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 10px;
+  line-height: 1.2;
+  font-weight: 850;
+  color: #f4f4f5;
+}
+
+.sidebar-discord-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  margin-top: 5px;
+}
+
+.sidebar-discord-role,
+.sidebar-discord-member {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 5.5px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.sidebar-discord-role {
+  color: rgba(192, 132, 252, 0.82);
+}
+
+.sidebar-discord-member {
+  color: rgba(161, 161, 170, 0.48);
+}
+
+.sidebar-discord-separator {
+  color: rgba(161, 161, 170, 0.35);
+  font-size: 7px;
+}
+
+.sidebar-discord-badge {
+  display: flex;
+  width: 25px;
+  height: 25px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(168, 85, 247, 0.18);
+  border-radius: 8px;
+  background: rgba(168, 85, 247, 0.07);
+  color: rgba(192, 132, 252, 0.78);
+  box-shadow: inset 0 0 12px rgba(168, 85, 247, 0.04);
+}
+
+@keyframes sidebar-discord-border {
+  0% { transform: translateX(-55%); }
+  100% { transform: translateX(55%); }
+}
+
+@keyframes sidebar-discord-glow {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(0.92);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translate3d(-18px, 10px, 0) scale(1.08);
+    opacity: 0.78;
+  }
+}
+
+@keyframes sidebar-discord-pulse {
+  0%, 100% {
+    opacity: 0.55;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+/* =========================================================
+   APP VERSION — GANZ UNTEN
+   ========================================================= */
+
+.sidebar-status {
+  display: flex;
+
+  min-width: 0;
+
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 9px;
+
+  border-radius: 9px;
+
+  border: 1px solid
+    rgba(255, 255, 255, 0.045);
+
+  background:
+    rgba(0, 0, 0, 0.22);
+}
+
+.sidebar-status-icon {
+  display: flex;
+
+  width: 23px;
+  height: 23px;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 6px;
+
+  background:
+    rgba(52, 211, 153, 0.07);
+
+  color:
+    rgba(52, 211, 153, 0.80);
+}
+
+.sidebar-status p {
+  margin: 0;
+
+  font-size: 9px;
+
+  line-height: 1;
+
+  font-weight: 700;
+
+  color:
+    rgba(228, 228, 231, 0.82);
+}
+
+.sidebar-status span {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 7px;
+
+  line-height: 1;
+
+  color:
+    rgba(130, 130, 138, 0.72);
+}
+
+.sidebar-status .sidebar-online {
+  margin-left: auto;
+  margin-top: 0;
+
+  padding: 4px 6px;
+
+  border-radius: 5px;
+
+  background:
+    rgba(52, 211, 153, 0.055);
+
+  color:
+    rgba(52, 211, 153, 0.78);
+
+  font-size: 6px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+}
+
+.sidebar-footer-line {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  margin-top: 7px;
+
+  font-size: 6.5px;
+
+  color:
+    rgba(130, 130, 138, 0.38);
+}
+
+/* =========================================================
+   ANIMATIONEN
+   ========================================================= */
+
+@keyframes falcon-logo-shine {
+  0%,
+  20% {
+    transform:
+      translateX(-70%)
+      rotate(12deg);
+
+    opacity: 0;
+  }
+
+  38% {
+    opacity: 0.8;
+  }
+
+  58%,
+  100% {
+    transform:
+      translateX(70%)
+      rotate(12deg);
+
+    opacity: 0;
+  }
+}
+
+@keyframes falcon-logo-border {
+  0% {
+    transform:
+      translateX(-65%);
+  }
+
+  100% {
+    transform:
+      translateX(65%);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 850px) {
+  .sidebar {
+    width: 200px;
+    min-width: 200px;
+  }
+
+  .sidebar-logo {
+    width: 48px;
+    height: 48px;
+  }
+
+  .sidebar-brand-text h1 {
+    font-size: 13px;
+  }
+
+  .sidebar-item {
+    height: 36px;
+    font-size: 10px;
+  }
+
+  .sidebar-discord-card {
+    min-height: 62px;
+  }
+
+  .sidebar-discord-avatar,
+  .sidebar-discord-avatar-wrap {
+    width: 36px;
+    height: 36px;
+  }
+}

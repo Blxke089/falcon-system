@@ -1,0 +1,254 @@
+@import "tailwindcss";
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+:root {
+  color-scheme: dark;
+
+  font-family:
+    Inter,
+    Arial,
+    sans-serif;
+
+  color: white;
+  background: #050505;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    rgba(245, 184, 46, 0.35)
+    rgba(0, 0, 0, 0.25);
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+}
+
+html {
+  background: #050505;
+}
+
+body {
+  overflow: hidden;
+
+  background: #050505;
+  color: white;
+}
+
+/* =========================================================
+   APP LAYOUT
+   ========================================================= */
+
+.app-layout {
+  display: flex;
+
+  width: 100%;
+  height: 100vh;
+
+  min-width: 1180px;
+  min-height: 650px;
+
+  overflow: hidden;
+
+  background: transparent;
+}
+
+.app-content {
+  position: relative;
+
+  display: flex;
+
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+
+  flex-direction: column;
+
+  overflow: hidden;
+}
+
+.app-page {
+  position: relative;
+
+  flex: 1;
+
+  min-width: 0;
+  min-height: 0;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    rgba(245, 184, 46, 0.28)
+    transparent;
+}
+
+/* =========================================================
+   CUSTOM BACKGROUND
+   ========================================================= */
+
+#root {
+  position: relative;
+
+  isolation: isolate;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.18),
+      rgba(0, 0, 0, 0.28)
+    ),
+    url("/backgrounds/089-castle-bg.png");
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* =========================================================
+   GOLD GLOW
+   ========================================================= */
+
+#root::before {
+  content: "";
+
+  position: fixed;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: 0;
+
+  background:
+    radial-gradient(
+      circle at 72% 42%,
+      rgba(255, 190, 40, 0.16),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 35% 75%,
+      rgba(255, 170, 20, 0.08),
+      transparent 32%
+    );
+
+  mix-blend-mode: screen;
+}
+
+/* =========================================================
+   VIGNETTE
+   ========================================================= */
+
+#root::after {
+  content: "";
+
+  position: fixed;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: 9999;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 48%,
+      rgba(0, 0, 0, 0.25) 100%
+    );
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background:
+    rgba(0, 0, 0, 0.25);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+
+  background:
+    rgba(245, 184, 46, 0.30);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background:
+    rgba(245, 184, 46, 0.50);
+}
+
+/* =========================================================
+   AUSWAHL
+   ========================================================= */
+
+::selection {
+  background:
+    rgba(245, 184, 46, 0.30);
+
+  color: white;
+}
+
+/* =========================================================
+   FORM ELEMENTS
+   ========================================================= */
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color:
+    rgba(161, 161, 170, 0.40);
+}
+
+/* =========================================================
+   DESKTOP APP
+   ========================================================= */
+
+@media (max-width: 1179px) {
+  html,
+  body {
+    min-width: 1180px;
+    overflow-x: auto;
+  }
+
+  #root {
+    min-width: 1180px;
+  }
+}
+#root::after {
+  display: none;
+}

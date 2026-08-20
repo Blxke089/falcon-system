@@ -1,0 +1,35 @@
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  plugins: [
+    react(),
+    tailwindcss(),
+  ],
+
+  clearScreen: false,
+
+  server: {
+    port: 5173,
+    strictPort: true,
+
+    watch: {
+      // Tauri/Rust baut hier seine Dateien.
+      // Vite darf diesen Ordner nicht überwachen.
+      ignored: [
+        "**/src-tauri/**",
+      ],
+    },
+  },
+
+  envPrefix: [
+    "VITE_",
+    "TAURI_",
+  ],
+
+  build: {
+    target: "chrome105",
+    sourcemap: true,
+  },
+});
