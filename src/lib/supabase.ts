@@ -1,18 +1,33 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseUrl =
+  import.meta.env.VITE_SUPABASE_URL;
+
 const supabasePublishableKey =
   import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
 if (!supabaseUrl) {
-  throw new Error("VITE_SUPABASE_URL fehlt.");
+  throw new Error(
+    "VITE_SUPABASE_URL fehlt.",
+  );
 }
 
 if (!supabasePublishableKey) {
-  throw new Error("VITE_SUPABASE_PUBLISHABLE_KEY fehlt.");
+  throw new Error(
+    "VITE_SUPABASE_PUBLISHABLE_KEY fehlt.",
+  );
 }
 
-export const supabase = createClient(
-  supabaseUrl,
-  supabasePublishableKey
-);
+export const supabase =
+  createClient(
+    supabaseUrl,
+    supabasePublishableKey,
+    {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: false,
+        flowType: "pkce",
+      },
+    },
+  );

@@ -4,29 +4,27 @@
 
 .falcon-hub {
   position: relative;
-
   width: 100%;
   min-height: 100vh;
-
   overflow: hidden;
 
   color: #fff;
 
   background:
     radial-gradient(
-      circle at 50% 48%,
-      rgba(150, 65, 255, 0.16),
-      transparent 27%
-    ),
-    radial-gradient(
-      circle at 12% 80%,
-      rgba(105, 35, 200, 0.08),
+      circle at 50% 50%,
+      rgba(145, 55, 255, 0.15),
       transparent 28%
     ),
     radial-gradient(
-      circle at 88% 20%,
-      rgba(130, 45, 230, 0.07),
-      transparent 28%
+      circle at 10% 85%,
+      rgba(100, 35, 200, 0.08),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 90% 15%,
+      rgba(130, 45, 230, 0.08),
+      transparent 30%
     ),
     #030305;
 
@@ -41,7 +39,7 @@
 
 
 /* =========================================================
-   BACKGROUND
+   BACKGROUND GRID
 ========================================================= */
 
 .falcon-hub-background {
@@ -61,20 +59,21 @@
       transparent 1px
     );
 
-  background-size:
-    55px 55px;
+  background-size: 55px 55px;
 
   mask-image:
     linear-gradient(
       to bottom,
       black 0%,
-      black 60%,
+      black 65%,
       transparent 100%
     );
 }
 
 
-/* Sterne / Partikel */
+/* =========================================================
+   STARS
+========================================================= */
 
 .falcon-hub-stars {
   position: absolute;
@@ -82,47 +81,29 @@
 
   pointer-events: none;
 
-  opacity: 0.35;
+  opacity: 0.32;
 
   background-image:
     radial-gradient(
       circle,
-      rgba(255, 255, 255, 0.7) 1px,
+      rgba(255,255,255,0.7) 1px,
       transparent 1px
     ),
     radial-gradient(
       circle,
-      rgba(181, 103, 255, 0.6) 1px,
+      rgba(181,103,255,0.6) 1px,
       transparent 1px
     );
 
   background-size:
     170px 170px,
     280px 280px;
-
-  animation:
-    falconStarsMove
-    25s
-    linear
-    infinite;
-}
-
-@keyframes falconStarsMove {
-  from {
-    background-position:
-      0 0,
-      100px 100px;
-  }
-
-  to {
-    background-position:
-      170px 170px,
-      -180px -180px;
-  }
 }
 
 
-/* große Glows */
+/* =========================================================
+   GLOWS
+========================================================= */
 
 .falcon-hub-glow {
   position: absolute;
@@ -137,12 +118,6 @@
   filter: blur(130px);
 
   opacity: 0.07;
-
-  animation:
-    falconGlowFloat
-    8s
-    ease-in-out
-    infinite;
 }
 
 .falcon-hub-glow-left {
@@ -157,19 +132,6 @@
   top: 20%;
 
   background: #7c28df;
-
-  animation-delay: -4s;
-}
-
-@keyframes falconGlowFloat {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-35px);
-  }
 }
 
 
@@ -192,22 +154,23 @@
   align-items: center;
   justify-content: space-between;
 
-  padding:
-    0 30px;
+  padding: 0 30px;
 
   border-bottom:
     1px solid
-    rgba(160, 80, 255, 0.15);
+    rgba(160,80,255,0.15);
 
   background:
-    rgba(4, 4, 7, 0.72);
+    rgba(4,4,7,0.72);
 
   backdrop-filter:
     blur(22px);
 }
 
 
-/* Brand */
+/* =========================================================
+   BRAND
+========================================================= */
 
 .falcon-hub-header-brand {
   display: flex;
@@ -228,13 +191,13 @@
 
   border:
     1px solid
-    rgba(177, 94, 255, 0.5);
+    rgba(177,94,255,0.5);
 
   background:
     radial-gradient(
       circle,
-      rgba(152, 59, 255, 0.28),
-      rgba(50, 12, 80, 0.5)
+      rgba(152,59,255,0.28),
+      rgba(50,12,80,0.5)
     );
 
   color: #d2a0ff;
@@ -244,28 +207,7 @@
 
   box-shadow:
     0 0 25px
-    rgba(145, 55, 255, 0.28);
-
-  animation:
-    falconHeaderLogo
-    4s
-    ease-in-out
-    infinite;
-}
-
-@keyframes falconHeaderLogo {
-  0%,
-  100% {
-    box-shadow:
-      0 0 20px
-      rgba(145, 55, 255, 0.25);
-  }
-
-  50% {
-    box-shadow:
-      0 0 35px
-      rgba(165, 75, 255, 0.5);
-  }
+    rgba(145,55,255,0.28);
 }
 
 .falcon-hub-brand-text strong,
@@ -275,7 +217,6 @@
 
 .falcon-hub-brand-text strong {
   font-size: 12px;
-
   letter-spacing: 0.08em;
 }
 
@@ -290,7 +231,9 @@
 }
 
 
-/* Kleine Info oben */
+/* =========================================================
+   HEADER INFO
+========================================================= */
 
 .falcon-hub-header-info {
   position: absolute;
@@ -317,16 +260,12 @@
 
 .falcon-hub-header-info b {
   color: #9b4dff;
-
-  font-size: 8px;
-
-  text-shadow:
-    0 0 8px
-    rgba(155, 77, 255, 0.8);
 }
 
 
-/* Online */
+/* =========================================================
+   ONLINE
+========================================================= */
 
 .falcon-hub-online {
   display: flex;
@@ -334,12 +273,11 @@
 
   gap: 7px;
 
-  padding:
-    8px 12px;
+  padding: 8px 12px;
 
   border:
     1px solid
-    rgba(0, 229, 160, 0.18);
+    rgba(0,229,160,0.18);
 
   border-radius: 999px;
 
@@ -349,9 +287,6 @@
   font-weight: 800;
 
   letter-spacing: 0.1em;
-
-  background:
-    rgba(0, 229, 160, 0.025);
 }
 
 .falcon-hub-online i {
@@ -365,19 +300,6 @@
   box-shadow:
     0 0 11px
     #00e5a0;
-
-  animation:
-    onlinePulse
-    2s
-    ease-in-out
-    infinite;
-}
-
-@keyframes onlinePulse {
-  50% {
-    opacity: 0.3;
-    transform: scale(0.7);
-  }
 }
 
 
@@ -412,8 +334,7 @@
 }
 
 .falcon-hub-title h1 {
-  margin:
-    7px 0 0;
+  margin: 7px 0 0;
 
   font-size:
     clamp(24px, 3vw, 36px);
@@ -430,30 +351,14 @@
       #ffffff
     );
 
-  background-size: 200% auto;
-
   background-clip: text;
   -webkit-background-clip: text;
 
   color: transparent;
-
-  animation:
-    titleShine
-    6s
-    linear
-    infinite;
-}
-
-@keyframes titleShine {
-  to {
-    background-position:
-      200% center;
-  }
 }
 
 .falcon-hub-title p {
-  margin:
-    6px 0 0;
+  margin: 6px 0 0;
 
   color: #68616f;
 
@@ -483,7 +388,7 @@
 
 
 /* =========================================================
-   CONNECTIONS
+   CONNECTION CONTAINER
 ========================================================= */
 
 .falcon-hub-connections {
@@ -491,7 +396,14 @@
   inset: 0;
 
   pointer-events: none;
+
+  z-index: 4;
 }
+
+
+/* =========================================================
+   CONNECTIONS
+========================================================= */
 
 .hub-connection {
   position: absolute;
@@ -507,135 +419,40 @@
   background:
     linear-gradient(
       90deg,
-      transparent,
-      rgba(165, 75, 255, 0.85),
-      rgba(210, 145, 255, 0.8),
-      transparent
+      rgba(150,65,255,0),
+      rgba(190,105,255,0.95),
+      rgba(210,145,255,0.85)
     );
 
   box-shadow:
-    0 0 12px
-    rgba(160, 70, 255, 0.65);
+    0 0 10px
+    rgba(160,70,255,0.7);
 
-  opacity: 0.8;
-
-  overflow: visible;
-
-  animation:
-    connectionPulse
-    3s
-    ease-in-out
-    infinite;
-}
-
-.hub-connection::after {
-  content: "";
-
-  position: absolute;
-
-  right: 10px;
-  top: 50%;
-
-  width: 6px;
-  height: 6px;
-
-  border-radius: 50%;
-
-  transform:
-    translateY(-50%);
-
-  background:
-    #c084ff;
-
-  box-shadow:
-    0 0 14px
-    #b36aff;
-
-  animation:
-    connectionDot
-    2s
-    linear
-    infinite;
-}
-
-@keyframes connectionPulse {
-  0%,
-  100% {
-    opacity: 0.45;
-  }
-
-  50% {
-    opacity: 1;
-  }
-}
-
-@keyframes connectionDot {
-  0% {
-    opacity: 0;
-  }
-
-  30% {
-    opacity: 1;
-  }
-
-  70% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
+  opacity: 0.9;
 }
 
 
-/* Links oben */
+/* =========================================================
+   CALCULATOR → CORE
+========================================================= */
 
 .connection-1 {
-  width: 380px;
+  width: 350px;
 
   transform:
     rotate(207deg);
 }
+
+
+/* =========================================================
+   CORE → VOTING
+========================================================= */
 
 .connection-2 {
   width: 350px;
 
   transform:
-    rotate(153deg);
-}
-
-
-/* Links unten */
-
-.connection-3 {
-  width: 380px;
-
-  transform:
-    rotate(153deg);
-}
-
-.connection-4 {
-  width: 350px;
-
-  transform:
-    rotate(207deg);
-}
-
-
-/* Rechts */
-
-.connection-5 {
-  width: 380px;
-
-  transform:
-    rotate(-27deg);
-}
-
-.connection-6 {
-  width: 350px;
-
-  transform:
-    rotate(27deg);
+    rotate(333deg);
 }
 
 
@@ -665,55 +482,30 @@
 
   border:
     1px solid
-    rgba(185, 100, 255, 0.85);
+    rgba(185,100,255,0.85);
 
   background:
     radial-gradient(
       circle,
-      rgba(145, 50, 255, 0.3),
-      rgba(6, 4, 10, 0.98) 66%
+      rgba(145,50,255,0.3),
+      rgba(6,4,10,0.98) 66%
     );
 
   box-shadow:
     0 0 30px
-    rgba(145, 55, 255, 0.8),
+    rgba(145,55,255,0.8),
+
     0 0 90px
-    rgba(125, 40, 255, 0.3),
+    rgba(125,40,255,0.3),
+
     inset 0 0 55px
-    rgba(145, 55, 255, 0.2);
-
-  animation:
-    corePulse
-    4s
-    ease-in-out
-    infinite;
-}
-
-@keyframes corePulse {
-  0%,
-  100% {
-    box-shadow:
-      0 0 30px
-      rgba(145, 55, 255, 0.8),
-      0 0 90px
-      rgba(125, 40, 255, 0.3),
-      inset 0 0 55px
-      rgba(145, 55, 255, 0.2);
-  }
-
-  50% {
-    box-shadow:
-      0 0 45px
-      rgba(175, 80, 255, 1),
-      0 0 120px
-      rgba(125, 40, 255, 0.42),
-      inset 0 0 75px
-      rgba(145, 55, 255, 0.3);
-  }
+    rgba(145,55,255,0.2);
 }
 
 
-/* Ringe */
+/* =========================================================
+   CORE RINGS
+========================================================= */
 
 .falcon-core-outer,
 .falcon-core-middle,
@@ -730,13 +522,7 @@
 
   border:
     1px dashed
-    rgba(160, 75, 255, 0.28);
-
-  animation:
-    ringRotate
-    18s
-    linear
-    infinite;
+    rgba(160,75,255,0.28);
 }
 
 .falcon-core-middle {
@@ -744,13 +530,7 @@
 
   border:
     1px solid
-    rgba(190, 105, 255, 0.25);
-
-  animation:
-    ringRotate
-    12s
-    linear
-    infinite reverse;
+    rgba(190,105,255,0.25);
 }
 
 .falcon-core-inner {
@@ -758,14 +538,7 @@
 
   border:
     1px solid
-    rgba(202, 130, 255, 0.32);
-}
-
-@keyframes ringRotate {
-  to {
-    transform:
-      rotate(360deg);
-  }
+    rgba(202,130,255,0.32);
 }
 
 
@@ -788,57 +561,30 @@
   background:
     radial-gradient(
       circle,
-      rgba(174, 79, 255, 0.28),
-      rgba(45, 10, 75, 0.2)
+      rgba(174,79,255,0.28),
+      rgba(45,10,75,0.2)
     );
-
-  box-shadow:
-    inset 0 0 30px
-    rgba(180, 85, 255, 0.22),
-    0 0 35px
-    rgba(155, 60, 255, 0.25);
 }
 
 .falcon-core-logo svg {
   width: 72px;
   height: 72px;
 
-  fill:
-    none;
+  fill: none;
 
   stroke:
     #d8a9ff;
 
-  stroke-width:
-    4;
+  stroke-width: 4;
 
-  stroke-linecap:
-    round;
-
-  stroke-linejoin:
-    round;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 
   filter:
     drop-shadow(
       0 0 8px
-      rgba(190, 100, 255, 0.9)
+      rgba(190,100,255,0.9)
     );
-
-  animation:
-    falconLogoGlow
-    3s
-    ease-in-out
-    infinite;
-}
-
-@keyframes falconLogoGlow {
-  50% {
-    filter:
-      drop-shadow(
-        0 0 16px
-        rgba(190, 100, 255, 1)
-      );
-  }
 }
 
 .falcon-core-dot {
@@ -851,8 +597,7 @@
 
   border-radius: 50%;
 
-  background:
-    #00e5a0;
+  background: #00e5a0;
 
   box-shadow:
     0 0 10px
@@ -861,7 +606,7 @@
 
 
 /* =========================================================
-   NODES
+   PROJECT NODES
 ========================================================= */
 
 .falcon-hub-node {
@@ -875,20 +620,19 @@
 
   gap: 12px;
 
-  padding:
-    15px;
+  padding: 15px;
 
   border:
     1px solid
-    rgba(160, 75, 255, 0.3);
+    rgba(160,75,255,0.3);
 
   border-radius: 15px;
 
   background:
     linear-gradient(
       135deg,
-      rgba(18, 9, 30, 0.97),
-      rgba(5, 4, 9, 0.98)
+      rgba(18,9,30,0.97),
+      rgba(5,4,9,0.98)
     );
 
   color: white;
@@ -903,95 +647,54 @@
 
   box-shadow:
     0 18px 50px
-    rgba(0, 0, 0, 0.4),
+    rgba(0,0,0,0.4),
+
     inset 0 1px
-    rgba(255, 255, 255, 0.035);
+    rgba(255,255,255,0.035);
 
   transition:
-    transform 0.35s
-      cubic-bezier(
-        0.22,
-        1,
-        0.36,
-        1
-      ),
+    transform 0.3s ease,
     border-color 0.3s ease,
     box-shadow 0.3s ease;
 }
 
 .falcon-hub-node:hover {
   border-color:
-    rgba(203, 128, 255, 0.85);
+    rgba(203,128,255,0.85);
 
   box-shadow:
     0 0 0 1px
-      rgba(180, 90, 255, 0.12),
+      rgba(180,90,255,0.12),
+
     0 0 45px
-      rgba(145, 55, 255, 0.32),
+      rgba(145,55,255,0.32),
+
     0 22px 55px
-      rgba(0, 0, 0, 0.55);
+      rgba(0,0,0,0.55);
 
   transform:
-    translateY(-6px)
-    scale(1.035);
-}
-
-
-/* Positionen */
-
-.hub-node-dashboard {
-  left: 2%;
-  top: 19%;
-}
-
-.hub-node-orders {
-  right: 2%;
-  top: 19%;
-}
-
-.hub-node-items {
-  left: 2%;
-  bottom: 17%;
-}
-
-.hub-node-settings {
-  right: 2%;
-  bottom: 17%;
-}
-
-.hub-node-users {
-  left: 50%;
-  bottom: 0;
-
-  transform:
-    translateX(-50%);
-}
-
-.hub-node-users:hover {
-  transform:
-    translateX(-50%)
-    translateY(-6px)
-    scale(1.035);
-}
-
-.hub-node-permissions {
-  left: 50%;
-  top: 0;
-
-  transform:
-    translateX(-50%);
-}
-
-.hub-node-permissions:hover {
-  transform:
-    translateX(-50%)
     translateY(-6px)
     scale(1.035);
 }
 
 
 /* =========================================================
-   NODE DETAILS
+   NODE POSITIONEN
+========================================================= */
+
+.hub-node-dashboard {
+  left: 2%;
+  top: 19%;
+}
+
+.hub-node-voting {
+  right: 2%;
+  top: 19%;
+}
+
+
+/* =========================================================
+   NODE NUMBER
 ========================================================= */
 
 .falcon-node-number {
@@ -1001,11 +704,16 @@
   right: 12px;
 
   color:
-    rgba(255, 255, 255, 0.07);
+    rgba(255,255,255,0.07);
 
   font-size: 20px;
   font-weight: 900;
 }
+
+
+/* =========================================================
+   NODE ICON
+========================================================= */
 
 .falcon-node-icon {
   width: 52px;
@@ -1024,37 +732,20 @@
 
   border:
     1px solid
-    rgba(168, 82, 255, 0.36);
+    rgba(168,82,255,0.36);
 
   background:
     radial-gradient(
       circle,
-      rgba(150, 55, 255, 0.2),
-      rgba(50, 13, 80, 0.15)
+      rgba(150,55,255,0.2),
+      rgba(50,13,80,0.15)
     );
-
-  box-shadow:
-    inset 0 0 20px
-    rgba(150, 55, 255, 0.1);
-
-  transition:
-    all 0.3s ease;
 }
 
-.falcon-hub-node:hover
-.falcon-node-icon {
-  color:
-    #f0dcff;
 
-  border-color:
-    rgba(205, 130, 255, 0.7);
-
-  box-shadow:
-    0 0 25px
-    rgba(160, 70, 255, 0.3),
-    inset 0 0 25px
-    rgba(150, 55, 255, 0.18);
-}
+/* =========================================================
+   NODE CONTENT
+========================================================= */
 
 .falcon-node-content {
   min-width: 0;
@@ -1113,34 +804,36 @@
     #00e5a0;
 }
 
+
+/* =========================================================
+   ARROW
+========================================================= */
+
 .falcon-node-arrow {
   color:
-    #74528f;
+    #b36aff;
 
   font-size: 19px;
 
   transition:
-    transform 0.25s ease,
-    color 0.25s ease;
+    transform 0.25s ease;
 }
 
 .falcon-hub-node:hover
 .falcon-node-arrow {
-  color:
-    #d3a2ff;
-
   transform:
     translateX(4px);
 }
 
 
-/* Hover highlight */
+/* =========================================================
+   HIGHLIGHT
+========================================================= */
 
 .falcon-node-highlight {
   position: absolute;
 
   left: -100%;
-
   top: 0;
 
   width: 60%;
@@ -1152,7 +845,7 @@
     linear-gradient(
       90deg,
       transparent,
-      rgba(190, 105, 255, 0.07),
+      rgba(190,105,255,0.07),
       transparent
     );
 
@@ -1184,14 +877,12 @@
       translate(-50%, -50%)
       scale(0.8);
   }
-
 }
 
 @media (max-width: 700px) {
 
   .falcon-hub-header {
-    padding:
-      0 16px;
+    padding: 0 16px;
   }
 
   .falcon-hub-title {
@@ -1207,5 +898,4 @@
       translate(-50%, -50%)
       scale(0.58);
   }
-
 }

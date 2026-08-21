@@ -2,7 +2,7 @@
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
 
   "productName": "Falcon System",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "identifier": "com.falcon.system",
 
   "build": {
@@ -32,13 +32,10 @@
 
   "bundle": {
     "active": true,
-
     "targets": [
       "nsis"
     ],
-
     "createUpdaterArtifacts": true,
-
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
@@ -49,16 +46,22 @@
   },
 
   "plugins": {
-  "updater": {
-    "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDI0QTNGRTZERDMzNTc4NEUKUldST2VEWFRiZjZqSkpXZS96alRlZC9vWjRMdWx2azNEQU5KK3c3d2Q1WXpZNytzbFRJYzBpUC8K",
+    "deep-link": {
+      "desktop": {
+        "schemes": [
+          "falcon"
+        ]
+      }
+    },
 
-    "endpoints": [
-    "https://github.com/Blxke089/falcon-system/releases/latest/download/latest.json"
-    ],
-
-    "windows": {
-      "installMode": "passive"
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDI0QTNGRTZERDMzNTc4NEUKUldST2VEWFRiZjZqSkpXZS96alRlZC9vWjRMdWx2azNEQU5KK3c3d2Q1WXpZNytzbFRJYzBpUC8K",
+      "endpoints": [
+        "https://github.com/Blxke089/falcon-system/releases/latest/download/latest.json"
+      ],
+      "windows": {
+        "installMode": "passive"
+      }
     }
   }
-}
 }

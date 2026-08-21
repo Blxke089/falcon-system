@@ -10,6 +10,12 @@ import {
 
 import type { Session } from "@supabase/supabase-js";
 
+import {
+  getCurrent,
+  onOpenUrl,
+} from "@tauri-apps/plugin-deep-link";
+import { openUrl } from "@tauri-apps/plugin-opener";
+
 import { check } from "@tauri-apps/plugin-updater";
 import { relaunch } from "@tauri-apps/plugin-process";
 
@@ -501,72 +507,207 @@ useEffect(() => {
 
   useEffect(() => {
     let mounted = true;
+    let unlistenDeepLink: (() => void) | null = null;
 
-    async function initializeAuth() {
-      const {
-        data,
-        error,
-      } = await supabase.auth.getSession();
+    async function handleAuthCallback(
+      callbackUrl: string,
+    ) {
+      try {
+        console.log(
+          "Falcon Auth Callback:",
+          callbackUrl,
+        );
 
-      if (!mounted) {
-        return;
-      }
+        const url = new URL(callbackUrl);
 
-      if (error) {
+        if (url.protocol !== "falcon:") {
+          return;
+        }
+
+        if (url.hostname !== "auth" || url.pathname !== "/callback") {
+          return;
+        }
+
+        const error = url.searchParams.get("error");
+        const errorDescription =
+          url.searchParams.get("error_description");
+
+        if (error) {
+          console.error(
+            "Discord OAuth Fehler:",
+            error,
+            errorDescription,
+          );
+
+          if (mounted) {
+            setAuthError(
+              errorDescription ||
+                "Die Discord-Anmeldung wurde abgebrochen.",
+            );
+            setLoginLoading(false);
+          }
+
+          return;
+        }
+
+        const code = url.searchParams.get("code");
+
+        if (!code) {
+          console.error(
+            "Kein Supabase Auth-Code im Deep Link gefunden.",
+          );
+
+          if (mounted) {
+            setAuthError(
+              "Die Discord-Anmeldung hat keinen gültigen Auth-Code zurückgegeben.",
+            );
+            setLoginLoading(false);
+          }
+
+          return;
+        }
+
+        console.log(
+          "Supabase Auth-Code gefunden. Session wird erstellt...",
+        );
+
+        const {
+          data,
+          error: exchangeError,
+        } = await supabase.auth.exchangeCodeForSession(code);
+
+        if (exchangeError) {
+          console.error(
+            "Supabase Code Exchange Fehler:",
+            exchangeError,
+          );
+
+          if (mounted) {
+            setAuthError(
+              "Die Discord-Anmeldung konnte nicht abgeschlossen werden.",
+            );
+            setLoginLoading(false);
+          }
+
+          return;
+        }
+
+        console.log(
+          "Discord-Anmeldung erfolgreich.",
+        );
+
+        if (!mounted) {
+          return;
+        }
+
+        setSession(data.session);
+        setAuthLoading(false);
+        setLoginLoading(false);
+
+        await loadProfile(data.session);
+      } catch (error) {
         console.error(
-          "Session konnte nicht geladen werden:",
+          "Auth Callback Fehler:",
           error,
         );
 
-        setAuthError(
-          "Die Anmeldung konnte nicht geprüft werden.",
-        );
+        if (mounted) {
+          setAuthError(
+            "Die Discord-Anmeldung konnte nicht abgeschlossen werden.",
+          );
+          setLoginLoading(false);
+        }
       }
+    }
 
-      setSession(
-        data.session,
-      );
+    async function handleDeepLinks(urls: string[]) {
+      for (const url of urls) {
+        await handleAuthCallback(url);
+      }
+    }
 
-      setAuthLoading(
-        false,
-      );
+    async function initializeAuth() {
+      try {
+        /*
+         * Wenn Falcon durch falcon://auth/callback gestartet wurde,
+         * liegt die Callback-URL hier.
+         */
+        const startUrls = await getCurrent();
 
-      await loadProfile(
-        data.session,
-      );
+        if (startUrls && startUrls.length > 0) {
+          await handleDeepLinks(startUrls);
+        }
+
+        /*
+         * Wenn Falcon bereits läuft und Windows den Deep Link an die
+         * bestehende Instanz weitergibt, kommt er hier an.
+         */
+        unlistenDeepLink = await onOpenUrl((urls) => {
+          void handleDeepLinks(urls);
+        });
+
+        const {
+          data,
+          error,
+        } = await supabase.auth.getSession();
+
+        if (!mounted) {
+          return;
+        }
+
+        if (error) {
+          console.error(
+            "Session konnte nicht geladen werden:",
+            error,
+          );
+
+          setAuthError(
+            "Die Anmeldung konnte nicht geprüft werden.",
+          );
+        }
+
+        setSession(data.session);
+        setAuthLoading(false);
+
+        await loadProfile(data.session);
+      } catch (error) {
+        console.error(
+          "Auth Initialisierung fehlgeschlagen:",
+          error,
+        );
+
+        if (mounted) {
+          setAuthError(
+            "Die Anmeldung konnte nicht initialisiert werden.",
+          );
+          setAuthLoading(false);
+        }
+      }
     }
 
     void initializeAuth();
 
     const {
       data: authListener,
-    } =
-      supabase.auth.onAuthStateChange(
-        (
-          _event,
-          nextSession,
-        ) => {
-          if (!mounted) {
-            return;
-          }
+    } = supabase.auth.onAuthStateChange(
+      (
+        _event,
+        nextSession,
+      ) => {
+        if (!mounted) {
+          return;
+        }
 
-          setSession(
-            nextSession,
-          );
+        setSession(nextSession);
+        setAuthLoading(false);
 
-          setAuthLoading(
-            false,
-          );
-
-          void loadProfile(
-            nextSession,
-          );
-        },
-      );
+        void loadProfile(nextSession);
+      },
+    );
 
     return () => {
       mounted = false;
-
+      unlistenDeepLink?.();
       authListener.subscription.unsubscribe();
     };
   }, []);
@@ -576,40 +717,59 @@ useEffect(() => {
   ========================================================= */
 
   async function handleDiscordLogin() {
-    setLoginLoading(
-      true,
-    );
-
+    setLoginLoading(true);
     setAuthError("");
 
-    const {
-      error,
-    } =
-      await supabase.auth.signInWithOAuth(
-        {
-          provider: "discord",
-
-          options: {
-            redirectTo:
-              window.location.origin,
-          },
+    try {
+      const {
+        data,
+        error,
+      } = await supabase.auth.signInWithOAuth({
+        provider: "discord",
+        options: {
+          redirectTo: "falcon://auth/callback",
+          skipBrowserRedirect: true,
         },
+      });
+
+      if (error) {
+        console.error(
+          "Discord Login Fehler:",
+          error,
+        );
+
+        setAuthError(
+          error.message ||
+            "Discord-Anmeldung fehlgeschlagen.",
+        );
+        setLoginLoading(false);
+        return;
+      }
+
+      if (!data.url) {
+        setAuthError(
+          "Discord-Anmeldelink konnte nicht erstellt werden.",
+        );
+        setLoginLoading(false);
+        return;
+      }
+
+      console.log(
+        "Öffne Discord-Anmeldung im Standardbrowser:",
+        data.url,
       );
 
-    if (error) {
+      await openUrl(data.url);
+    } catch (error) {
       console.error(
         "Discord Login Fehler:",
         error,
       );
 
       setAuthError(
-        error.message ||
-          "Discord-Anmeldung fehlgeschlagen.",
+        "Discord-Anmeldung konnte nicht gestartet werden.",
       );
-
-      setLoginLoading(
-        false,
-      );
+      setLoginLoading(false);
     }
   }
 

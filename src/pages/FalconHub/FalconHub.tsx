@@ -3,6 +3,7 @@ import type { LucideIcon } from "lucide-react";
 
 import {
   Calculator,
+  Vote,
 } from "lucide-react";
 
 import "./FalconHub.css";
@@ -10,23 +11,52 @@ import "./FalconHub.css";
 type FalconProject = {
   name: string;
   description: string;
-  route: string;
+  route?: string;
   icon: LucideIcon;
   position: string;
+  action?: () => void;
 };
 
-const projects: FalconProject[] = [
-  {
-    name: "FALCON CALCULATOR",
-    description: "BESTELLUNGEN · ITEMS · VERWALTUNG",
-    route: "/dashboard",
-    icon: Calculator,
-    position: "hub-node-dashboard",
-  },
+const votingWebsites = [
+  "https://minecraft-server.eu/vote/index/1A73C",
+  "https://topminecraftservers.org/vote/43274",
+  "https://www.mc-liste.de/server/165/vote",
+  "https://serverliste.net/vote/5534",
+  "https://www.minecraft-serverlist.net/vote/55173",
 ];
+
+function openFalconVoting() {
+  for (const website of votingWebsites) {
+    window.open(
+      website,
+      "_blank",
+      "noopener,noreferrer",
+    );
+  }
+}
 
 export default function FalconHub() {
   const navigate = useNavigate();
+
+  const projects: FalconProject[] = [
+    {
+      name: "FALCON CALCULATOR",
+      description:
+        "BESTELLUNGEN · ITEMS · VERWALTUNG",
+      route: "/dashboard",
+      icon: Calculator,
+      position: "hub-node-dashboard",
+    },
+
+    {
+      name: "FALCON VOTING",
+      description:
+        "MINECRAFT · VOTE · SERVER",
+      icon: Vote,
+      position: "hub-node-voting",
+      action: openFalconVoting,
+    },
+  ];
 
   return (
     <div className="falcon-hub">
@@ -52,11 +82,15 @@ export default function FalconHub() {
           </div>
 
           <div className="falcon-hub-brand-text">
-            <strong>FALCON SYSTEM</strong>
+
+            <strong>
+              FALCON SYSTEM
+            </strong>
 
             <span>
               ZENTRALE SYSTEMSTEUERUNG
             </span>
+
           </div>
 
         </div>
@@ -97,9 +131,13 @@ export default function FalconHub() {
 
       <div className="falcon-hub-title">
 
-        <span>FALCON CONTROL</span>
+        <span>
+          FALCON CONTROL
+        </span>
 
-        <h1>FALCON HUB</h1>
+        <h1>
+          FALCON HUB
+        </h1>
 
         <p>
           Alle Systeme zentral an einem Ort.
@@ -117,11 +155,12 @@ export default function FalconHub() {
 
           <div className="hub-connection connection-1" />
 
+          <div className="hub-connection connection-2" />
+
         </div>
 
         {/* =====================================
             ZENTRALES FALCON LOGO
-            Nur Logo – keine Schrift
         ===================================== */}
 
         <div className="falcon-hub-core">
@@ -136,6 +175,7 @@ export default function FalconHub() {
               viewBox="0 0 100 100"
               aria-hidden="true"
             >
+
               <path
                 d="M50 76
                    C42 67 35 57 35 46
@@ -174,11 +214,9 @@ export default function FalconHub() {
 
         {/* =====================================
             PROJEKTE
-            Nur komplette Apps / Projekte.
-            Unterseiten bleiben innerhalb des Projekts.
         ===================================== */}
 
-        {projects.map((project) => {
+        {projects.map((project, index) => {
 
           const Icon = project.icon;
 
@@ -187,22 +225,31 @@ export default function FalconHub() {
               key={project.name}
               type="button"
               className={`falcon-hub-node ${project.position}`}
-              onClick={() =>
-                navigate(project.route)
-              }
+              onClick={() => {
+
+                if (project.action) {
+                  project.action();
+                  return;
+                }
+
+                if (project.route) {
+                  navigate(project.route);
+                }
+
+              }}
             >
 
               <div className="falcon-node-number">
-                {String(
-                  projects.indexOf(project) + 1,
-                ).padStart(2, "0")}
+                {String(index + 1).padStart(2, "0")}
               </div>
 
               <div className="falcon-node-icon">
+
                 <Icon
                   size={23}
                   strokeWidth={1.7}
                 />
+
               </div>
 
               <div className="falcon-node-content">
@@ -216,8 +263,11 @@ export default function FalconHub() {
                 </span>
 
                 <small>
+
                   <i />
+
                   SYSTEM BEREIT
+
                 </small>
 
               </div>
