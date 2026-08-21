@@ -23,7 +23,6 @@ import Settings from "./pages/Settings/Settings";
 import PermissionsPanel from "./pages/Settings/PermissionsPanel";
 import Users from "./pages/Users/Users";
 import FalconHub from "./pages/FalconHub/FalconHub";
-
 import type { SavedOrder } from "./services/OrderStorage/OrderStorage";
 
 import {
@@ -151,7 +150,47 @@ export default function App() {
         window.location.pathname,
       ),
   );
+useEffect(() => {
+  let cancelled = false;
 
+  async function checkForUpdates() {
+    try {
+      const update = await check();
+
+      if (!update || cancelled) {
+        return;
+      }
+
+      const shouldUpdate = window.confirm(
+        `Eine neue Version von Falcon System ist verfügbar.\n\n` +
+        `Aktuelle Version: ${update.currentVersion}\n` +
+        `Neue Version: ${update.version}\n\n` +
+        `Möchtest du das Update jetzt installieren?`,
+      );
+
+      if (!shouldUpdate || cancelled) {
+        return;
+      }
+
+      await update.downloadAndInstall();
+
+      if (!cancelled) {
+        await relaunch();
+      }
+    } catch (error) {
+      console.error(
+        "Falcon System Update-Fehler:",
+        error,
+      );
+    }
+  }
+
+  void checkForUpdates();
+
+  return () => {
+    cancelled = true;
+  };
+}, []);
   const [
     selectedOrder,
     setSelectedOrder,
