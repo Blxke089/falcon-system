@@ -10,6 +10,9 @@ import {
 
 import type { Session } from "@supabase/supabase-js";
 
+import { check } from "@tauri-apps/plugin-updater";
+import { relaunch } from "@tauri-apps/plugin-process";
+
 import Sidebar from "./components/layout/Sidebar/Sidebar";
 import Header from "./components/layout/Header/Header";
 
@@ -196,6 +199,85 @@ export default function App() {
   ] = useState("");
 
   /* =========================================================
+     UPDATE STATUS
+  ========================================================= */
+
+  const [
+    updateInstalling,
+    setUpdateInstalling,
+  ] = useState(false);
+
+  const [
+    updateVersion,
+    setUpdateVersion,
+  ] = useState<string | null>(
+    null,
+  );
+
+  /* =========================================================
+     AUTO UPDATER
+  ========================================================= */
+
+  useEffect(() => {
+    let mounted = true;
+
+    async function checkForUpdates() {
+      try {
+        const update =
+          await check();
+
+        if (!mounted || !update) {
+          return;
+        }
+
+        setUpdateVersion(
+          update.version,
+        );
+
+        setUpdateInstalling(
+          true,
+        );
+
+        await update.downloadAndInstall();
+
+        if (!mounted) {
+          return;
+        }
+
+        /*
+         * Tauri hat das Update installiert.
+         * Danach wird Falcon System neu gestartet.
+         */
+        await relaunch();
+      } catch (error) {
+        console.error(
+          "Auto-Updater Fehler:",
+          error,
+        );
+
+        /*
+         * Ein Update-Fehler darf die App
+         * NICHT unbenutzbar machen.
+         *
+         * Die aktuelle Version läuft
+         * einfach weiter.
+         */
+        if (mounted) {
+          setUpdateInstalling(
+            false,
+          );
+        }
+      }
+    }
+
+    void checkForUpdates();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  /* =========================================================
      PERMISSIONS
   ========================================================= */
 
@@ -283,7 +365,10 @@ export default function App() {
       return;
     }
 
-    setProfileLoading(true);
+    setProfileLoading(
+      true,
+    );
+
     setAuthError("");
 
     const {
@@ -311,6 +396,7 @@ export default function App() {
       );
 
       setProfile(null);
+
       setProfileLoading(
         false,
       );
@@ -451,7 +537,10 @@ export default function App() {
   ========================================================= */
 
   async function handleDiscordLogin() {
-    setLoginLoading(true);
+    setLoginLoading(
+      true,
+    );
+
     setAuthError("");
 
     const {
@@ -479,7 +568,9 @@ export default function App() {
           "Discord-Anmeldung fehlgeschlagen.",
       );
 
-      setLoginLoading(false);
+      setLoginLoading(
+        false,
+      );
     }
   }
 
@@ -529,7 +620,9 @@ export default function App() {
   ========================================================= */
 
   function handleNewOrder() {
-    setSelectedOrder(null);
+    setSelectedOrder(
+      null,
+    );
 
     setActivePage(
       "dashboard",
@@ -545,7 +638,9 @@ export default function App() {
   ========================================================= */
 
   function handleSettings() {
-    setSelectedOrder(null);
+    setSelectedOrder(
+      null,
+    );
 
     setActivePage(
       "settings",
@@ -575,18 +670,10 @@ export default function App() {
     switch (
       activePage
     ) {
-      /* =====================================================
-         HUB
-      ===================================================== */
-
       case "hub":
         return (
           <FalconHub />
         );
-
-      /* =====================================================
-         DASHBOARD
-      ===================================================== */
 
       case "dashboard": {
         if (
@@ -616,10 +703,6 @@ export default function App() {
         );
       }
 
-      /* =====================================================
-         ORDERS
-      ===================================================== */
-
       case "orders": {
         if (
           !can(
@@ -646,10 +729,6 @@ export default function App() {
         );
       }
 
-      /* =====================================================
-         ITEMS
-      ===================================================== */
-
       case "items": {
         if (
           !can(
@@ -661,12 +740,10 @@ export default function App() {
           );
         }
 
-        return <Items />;
+        return (
+          <Items />
+        );
       }
-
-      /* =====================================================
-         SETTINGS
-      ===================================================== */
 
       case "settings": {
         if (
@@ -679,12 +756,10 @@ export default function App() {
           );
         }
 
-        return <Settings />;
+        return (
+          <Settings />
+        );
       }
-
-      /* =====================================================
-         USERS
-      ===================================================== */
 
       case "users": {
         if (
@@ -703,10 +778,6 @@ export default function App() {
           </main>
         );
       }
-
-      /* =====================================================
-         PERMISSIONS
-      ===================================================== */
 
       case "permissions": {
         if (
@@ -906,6 +977,44 @@ export default function App() {
 
   return (
     <div className="app-layout">
+
+      {/* =====================================================
+          UPDATE STATUS
+      ===================================================== */}
+
+      {updateInstalling && (
+        <div className="fixed right-5 top-5 z-[9999] w-[320px] overflow-hidden rounded-2xl border border-yellow-500/20 bg-black/90 p-4 shadow-[0_20px_80px_rgba(0,0,0,0.55)] backdrop-blur-xl">
+
+          <div className="flex items-center gap-3">
+
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-yellow-500/20 bg-yellow-500/[0.08]">
+
+              <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/10 border-t-yellow-400" />
+
+            </div>
+
+            <div className="min-w-0">
+
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-400">
+                Falcon System
+              </p>
+
+              <p className="mt-1 text-sm font-semibold text-white">
+                Update wird installiert...
+              </p>
+
+              {updateVersion && (
+                <p className="mt-1 text-[11px] text-zinc-500">
+                  Neue Version {updateVersion}
+                </p>
+              )}
+
+            </div>
+
+          </div>
+
+        </div>
+      )}
 
       <Sidebar
         activePage={

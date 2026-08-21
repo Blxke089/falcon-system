@@ -7,12 +7,15 @@ pub fn run() {
         // Updater Plugin
         .setup(|app| {
             #[cfg(desktop)]
-            app.handle()
-                .plugin(
-                    tauri_plugin_updater::Builder::new()
-                        .build(),
-                );
+            {
+                app.handle()
+                    .plugin(
+                        tauri_plugin_updater::Builder::new()
+                            .build(),
+                    )?;
+            }
 
+            // Log Plugin nur im Debug-Modus
             if cfg!(debug_assertions) {
                 app.handle().plugin(
                     tauri_plugin_log::Builder::default()
@@ -23,7 +26,6 @@ pub fn run() {
 
             Ok(())
         })
-
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
