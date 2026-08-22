@@ -6,6 +6,8 @@ import {
   Vote,
 } from "lucide-react";
 
+import { openUrl } from "@tauri-apps/plugin-opener";
+
 import "./FalconHub.css";
 
 type FalconProject = {
@@ -14,7 +16,7 @@ type FalconProject = {
   route?: string;
   icon: LucideIcon;
   position: string;
-  action?: () => void;
+  action?: () => void | Promise<void>;
 };
 
 const votingWebsites = [
@@ -25,13 +27,17 @@ const votingWebsites = [
   "https://www.minecraft-serverlist.net/vote/55173",
 ];
 
-function openFalconVoting() {
+async function openFalconVoting() {
   for (const website of votingWebsites) {
-    window.open(
-      website,
-      "_blank",
-      "noopener,noreferrer",
-    );
+    try {
+      await openUrl(website);
+    } catch (error) {
+      console.error(
+        "Voting-Seite konnte nicht geöffnet werden:",
+        website,
+        error,
+      );
+    }
   }
 }
 
@@ -225,10 +231,10 @@ export default function FalconHub() {
               key={project.name}
               type="button"
               className={`falcon-hub-node ${project.position}`}
-              onClick={() => {
+              onClick={async () => {
 
                 if (project.action) {
-                  project.action();
+                  await project.action();
                   return;
                 }
 
